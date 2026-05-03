@@ -3,7 +3,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { authClient } from "../../lib/auth-client";
 
-export default function Login() {
+export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -13,79 +13,36 @@ export default function Login() {
     e.preventDefault();
     setLoading(true);
     setError("");
+    await authClient.signIn.email({ email, password }, {
+      onSuccess: () => { window.location.href = "/"; },
+      onError: (ctx) => { setError(ctx.error.message); setLoading(false); }
+    });
+  };
 
-    try {
-      await authClient.signIn.email({
-        email: email,
-        password: password,
-      }, {
-        onSuccess: () => {
-          // window.location.href ব্যবহার করলে সেশনটি নেভবারে সাথে সাথে আপডেট হয়
-          window.location.href = "/"; 
-        },
-        onError: (ctx) => {
-          setError(ctx.error.message || "Invalid email or password");
-          setLoading(false);
-        }
-      });
-    } catch (err) {
-      setError("Something went wrong. Please try again.");
-      setLoading(false);
-    }
+  const handleGoogleLogin = async () => {
+    await authClient.signIn.social({ provider: "google", callbackURL: "/" });
   };
 
   return (
     <div className="min-h-[85vh] flex items-center justify-center bg-slate-50 px-4 py-10 text-black">
-      <div className="bg-white p-8 md:p-10 rounded-3xl shadow-2xl w-full max-w-md border border-slate-100">
-        
-        <div className="text-center mb-8">
-          <h2 className="text-3xl font-extrabold text-slate-800 tracking-tight">Welcome Back</h2>
-          <p className="text-slate-500 mt-2 text-sm">Login to continue your learning journey</p>
-        </div>
-
-        {error && (
-          <div className="bg-red-50 text-red-600 px-4 py-3 rounded-xl mb-6 text-sm font-semibold border border-red-100 text-center">
-            ⚠️ {error}
-          </div>
-        )}
+      <div className="bg-white p-10 rounded-[35px] shadow-2xl w-full max-w-md">
+        <h2 className="text-3xl font-black text-center mb-8">Login</h2>
+        {error && <div className="bg-red-50 text-red-600 p-4 rounded-xl mb-6 text-sm text-center font-bold italic">⚠️ {error}</div>}
         
         <form className="space-y-5" onSubmit={handleLogin}>
-          <div>
-            <label className="block text-sm font-bold text-slate-700 mb-2">Email Address</label>
-            <input 
-              type="email" 
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="email@example.com" 
-              className="w-full px-5 py-3.5 rounded-xl border border-slate-200 bg-slate-50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-orange-500 transition-all text-black" 
-              required 
-            />
-          </div>
-          
-          <div>
-            <label className="block text-sm font-bold text-slate-700 mb-2">Password</label>
-            <input 
-              type="password" 
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              placeholder="••••••••" 
-              className="w-full px-5 py-3.5 rounded-xl border border-slate-200 bg-slate-50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-orange-500 transition-all text-black" 
-              required 
-            />
-          </div>
-          
-          <button 
-            disabled={loading} 
-            type="submit" 
-            className="w-full bg-gradient-to-r from-orange-500 to-rose-500 text-white font-bold py-3.5 rounded-xl hover:scale-[1.02] transition-transform shadow-lg shadow-orange-500/30 mt-2 disabled:opacity-50"
-          >
-            {loading ? "Verifying..." : "Login to SkillSphere"}
-          </button>
+          <input type="email" placeholder="Email" className="w-full p-4 rounded-xl border" onChange={(e) => setEmail(e.target.value)} required />
+          <input type="password" placeholder="Password" className="w-full p-4 rounded-xl border" onChange={(e) => setPassword(e.target.value)} required />
+          <button disabled={loading} className="w-full bg-orange-600 text-white py-4 rounded-xl font-bold shadow-lg">Login</button>
         </form>
 
-        <p className="text-center mt-8 text-sm text-slate-600 font-medium">
-          Don't have an account? <Link href="/register" className="text-orange-600 font-bold hover:underline">Register here</Link>
-        </p>
+        <div className="relative my-8"><hr/><span className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white px-4 text-slate-400 text-xs font-bold uppercase">OR</span></div>
+
+        <button onClick={handleGoogleLogin} className="w-full flex items-center justify-center gap-3 border-2 py-3.5 rounded-xl font-bold hover:bg-slate-50 transition-all">
+          <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" className="w-5" alt="google" />
+          Continue with Google
+        </button>
+
+        <p className="text-center mt-8 text-sm font-medium">New here? <Link href="/register" className="text-orange-600 font-bold">Register Now</Link></p>
       </div>
     </div>
   );
