@@ -1,54 +1,87 @@
 "use client";
-import { useState } from "react";
 import Link from "next/link";
-import coursesData from "../../data/courses.json"; 
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { authClient } from "../../lib/auth-client";
 
-export default function CoursesPage() {
-  const [searchTerm, setSearchTerm] = useState("");
+export default function Login() {
+  const router = useRouter();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  const filteredCourses = coursesData.filter((course) =>
-    course.title.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setError("");
+
+    await authClient.signIn.email({
+      email: email,
+      password: password,
+    }, {
+      onSuccess: () => {
+        // লগইন সফল হলে হোম পেজে পাঠিয়ে দেবে
+        router.push("/");
+      },
+      onError: (ctx) => {
+        // ভুল ইমেইল বা পাসওয়ার্ড দিলে এরর দেখাবে
+        setError(ctx.error.message);
+        setLoading(false);
+      }
+    });
+  };
 
   return (
-    <div className="container mx-auto px-4 md:px-10 py-10">
-      <h1 className="text-4xl font-bold text-center mb-8 text-gray-800">Explore All Courses</h1>
-      
-      <div className="flex justify-center mb-12">
-        <input 
-          type="text" 
-          placeholder="Search courses by title..." 
-          className="input input-bordered w-full max-w-lg shadow-sm border-orange-200 focus:border-orange-500"
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-        />
-      </div>
+    <div className="min-h-[85vh] flex items-center justify-center bg-slate-50 px-4 py-10">
+      <div className="bg-white p-8 md:p-10 rounded-3xl shadow-2xl w-full max-w-md border border-slate-100">
+        
+        <div className="text-center mb-8">
+          <h2 className="text-3xl font-extrabold text-slate-800 tracking-tight">Welcome Back</h2>
+          <p className="text-slate-500 mt-2 text-sm">Login to continue your learning journey</p>
+        </div>
 
-      {filteredCourses.length > 0 ? (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {filteredCourses.map((course) => (
-            <div key={course.id} className="card bg-base-100 shadow-xl border border-gray-100 hover:shadow-2xl transition-all">
-              <figure><img src={course.image} alt={course.title} className="h-52 w-full object-cover" /></figure>
-              <div className="card-body">
-                <h2 className="card-title text-lg">{course.title}</h2>
-                <p className="text-sm text-gray-500">Instructor: {course.instructor}</p>
-                <div className="flex justify-between items-center mt-4">
-                  <div className="badge badge-secondary bg-orange-100 text-orange-600 border-none font-semibold">
-                    ⭐ {course.rating}
-                  </div>
-                  <Link href={`/courses/${course.id}`} className="btn btn-sm btn-primary bg-orange-500 hover:bg-orange-600 border-none text-white">
-                    View Details
-                  </Link>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-      ) : (
-        <div className="text-center text-gray-500 mt-10">
-          <h3 className="text-2xl font-semibold">No courses found matching "{searchTerm}"</h3>
-        </div>
-      )}
+        {/* Error Message Box */}
+        {error && (
+          <div className="bg-red-50 text-red-600 px-4 py-3 rounded-xl mb-6 text-sm font-semibold border border-red-100 text-center">
+            {error}
+          </div>
+        )}
+        
+        <form className="space-y-5" onSubmit={handleLogin}>
+          <div>
+            <label className="block text-sm font-bold text-slate-700 mb-2">Email Address</label>
+            <input 
+              type="email" 
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="email@example.com" 
+              className="w-full px-5 py-3.5 rounded-xl border border-slate-200 bg-slate-50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all" 
+              required 
+            />
+          </div>
+          
+          <div>
+            <label className="block text-sm font-bold text-slate-700 mb-2">Password</label>
+            <input 
+              type="password" 
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              placeholder="••••••••" 
+              className="w-full px-5 py-3.5 rounded-xl border border-slate-200 bg-slate-50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all" 
+              required 
+            />
+          </div>
+          
+          <button disabled={loading} type="submit" className="w-full bg-gradient-to-r from-orange-500 to-rose-500 text-white font-bold py-3.5 rounded-xl hover:scale-[1.02] transition-transform shadow-lg shadow-orange-500/30 mt-2 disabled:opacity-50 disabled:hover:scale-100">
+            {loading ? "Logging in..." : "Login to SkillSphere"}
+          </button>
+        </form>
+
+        <p className="text-center mt-8 text-sm text-slate-600 font-medium">
+          Don't have an account? <Link href="/register" className="text-orange-600 font-bold hover:underline">Register here</Link>
+        </p>
+      </div>
     </div>
   );
 }
