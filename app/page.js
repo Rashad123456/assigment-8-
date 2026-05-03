@@ -1,74 +1,88 @@
+"use client";
 import Link from "next/link";
-import coursesData from "../data/courses.json";
+import { motion } from "framer-motion";
 
 export default function Home() {
-  const popularCourses = coursesData.sort((a, b) => b.rating - a.rating).slice(0, 3);
-
   return (
-    <div className="container mx-auto px-4 md:px-10 pb-12">
-      {/* 100% Pure Tailwind Hero Section - No DaisyUI Conflicts */}
-      <div className="relative w-full rounded-[2.5rem] overflow-hidden shadow-2xl mb-20 mt-4 bg-slate-900 border border-slate-800">
-        
-        {/* Background Gradient & Glow Effects */}
-        <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 z-0"></div>
-        <div className="absolute top-0 right-0 w-96 h-96 bg-orange-500/20 rounded-full blur-[100px] z-0"></div>
-        <div className="absolute bottom-0 left-0 w-96 h-96 bg-rose-500/20 rounded-full blur-[100px] z-0"></div>
-
-        {/* Content Container */}
-        <div className="relative z-10 flex flex-col items-center justify-center min-h-[60vh] py-20 px-4 text-center">
-          
-          {/* Beautiful Custom Badge */}
-          <div className="inline-flex items-center gap-2 bg-white/5 border border-white/10 backdrop-blur-md px-5 py-2 rounded-full mb-8 shadow-lg">
-            <span className="text-base">🚀</span>
-            <span className="text-orange-400 text-xs font-bold uppercase tracking-[0.2em]">The Future of Learning</span>
-          </div>
-
-          {/* Heading */}
-          <h1 className="text-5xl md:text-7xl font-extrabold text-white mb-6 leading-tight max-w-4xl">
-            Master New Skills <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-rose-400">
-              Shape Your Future
-            </span>
+    <div className="min-h-screen bg-slate-50 text-black">
+      {/* Hero Section with Animation */}
+      <section className="bg-slate-900 text-white py-24 px-6 text-center overflow-hidden">
+        <motion.div 
+          initial={{ opacity: 0, y: 50 }} 
+          animate={{ opacity: 1, y: 0 }} 
+          transition={{ duration: 0.8 }}
+          className="max-w-4xl mx-auto"
+        >
+          <h1 className="text-5xl md:text-6xl font-extrabold mb-6 leading-tight">
+            Upgrade Your Skills Today <span className="text-orange-500">🚀</span>
           </h1>
-
-          {/* Subheading */}
-          <p className="text-slate-300 text-lg md:text-xl font-medium max-w-2xl mx-auto mb-10 leading-relaxed">
-            Join thousands of students learning from top industry experts. Explore premium courses in Web Development, Design, Marketing, and more.
+          <p className="text-lg md:text-xl text-slate-300 mb-10">
+            Learn from Industry Experts and take your career to the next level with SkillSphere.
           </p>
-
-          {/* Premium Button */}
-          <Link href="/courses" className="inline-flex items-center justify-center px-10 py-4 text-lg font-bold text-white transition-all duration-300 bg-gradient-to-r from-orange-500 to-rose-500 rounded-full hover:scale-105 hover:shadow-[0_0_40px_-10px_rgba(249,115,22,0.6)]">
-            Explore All Courses
-          </Link>
-        </div>
-      </div>
+          <div className="flex justify-center gap-4">
+            <Link href="/courses" className="bg-gradient-to-r from-orange-500 to-rose-500 px-8 py-4 rounded-xl font-bold text-lg hover:scale-105 transition-all shadow-lg shadow-orange-500/30">
+              Explore Courses
+            </Link>
+          </div>
+        </motion.div>
+      </section>
 
       {/* Popular Courses Section */}
-      <section className="mb-16">
-        <div className="flex flex-col items-center mb-16">
-          <h2 className="text-4xl font-extrabold text-slate-800 mb-4">🔥 Top Rated Courses</h2>
-          <div className="w-24 h-1.5 bg-gradient-to-r from-orange-500 to-rose-500 rounded-full"></div>
+      <section className="py-20 px-6 max-w-7xl mx-auto">
+        <div className="text-center mb-16">
+          <h2 className="text-4xl font-extrabold text-slate-800">🔥 Popular Courses</h2>
+          <p className="text-slate-500 mt-2">Our top-rated courses picked for you</p>
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-          {popularCourses.map((course) => (
-            <div key={course.id} className="flex flex-col bg-white rounded-3xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_8px_30px_rgb(0,0,0,0.12)] transition-all duration-300 border border-slate-100 group overflow-hidden">
-              <div className="relative overflow-hidden h-64">
-                <img src={course.image} alt={course.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-in-out" />
-                <div className="absolute top-5 right-5 bg-white/95 backdrop-blur-sm px-4 py-1.5 rounded-full text-sm font-bold text-orange-600 shadow-sm flex items-center gap-1">
-                  ⭐ {course.rating}
-                </div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {/* Dummy Course Card 1 */}
+          <div className="bg-white rounded-3xl overflow-hidden shadow-xl border border-slate-100 hover:-translate-y-2 transition-all">
+            <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=600&q=80" alt="Web Dev" className="w-full h-48 object-cover" />
+            <div className="p-6">
+              <h3 className="text-xl font-bold mb-2">Complete Web Development</h3>
+              <p className="text-slate-500 text-sm mb-4">Instructor: John Doe</p>
+              <div className="flex justify-between items-center mb-4">
+                <span className="font-bold text-orange-600">⭐ 4.8</span>
               </div>
-              <div className="p-8 flex flex-col flex-grow">
-                <div className="text-xs font-bold tracking-widest text-orange-500 uppercase mb-3">{course.category}</div>
-                <h2 className="text-2xl font-bold text-slate-800 mb-3 leading-snug group-hover:text-orange-500 transition-colors line-clamp-2">{course.title}</h2>
-                <p className="text-slate-500 text-sm mb-8 flex-grow">Instructor: <span className="font-medium text-slate-700">{course.instructor}</span></p>
-                <Link href={`/courses/${course.id}`} className="block text-center w-full bg-slate-50 hover:bg-gradient-to-r hover:from-orange-500 hover:to-rose-500 hover:text-white text-slate-700 font-bold py-3.5 rounded-xl transition-all duration-300">
-                  View Course Details →
-                </Link>
-              </div>
+              <Link href="/courses" className="block text-center bg-slate-100 text-slate-800 py-2.5 rounded-xl font-bold hover:bg-orange-500 hover:text-white transition-colors">View Details</Link>
             </div>
-          ))}
+          </div>
+          {/* Dummy Course Card 2 */}
+          <div className="bg-white rounded-3xl overflow-hidden shadow-xl border border-slate-100 hover:-translate-y-2 transition-all">
+            <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=600&q=80" alt="UI UX" className="w-full h-48 object-cover" />
+            <div className="p-6">
+              <h3 className="text-xl font-bold mb-2">UI/UX Design Masterclass</h3>
+              <p className="text-slate-500 text-sm mb-4">Instructor: Jane Smith</p>
+              <div className="flex justify-between items-center mb-4">
+                <span className="font-bold text-orange-600">⭐ 4.9</span>
+              </div>
+              <Link href="/courses" className="block text-center bg-slate-100 text-slate-800 py-2.5 rounded-xl font-bold hover:bg-orange-500 hover:text-white transition-colors">View Details</Link>
+            </div>
+          </div>
+          {/* Dummy Course Card 3 */}
+          <div className="bg-white rounded-3xl overflow-hidden shadow-xl border border-slate-100 hover:-translate-y-2 transition-all">
+            <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&q=80" alt="Data Science" className="w-full h-48 object-cover" />
+            <div className="p-6">
+              <h3 className="text-xl font-bold mb-2">Data Science for Beginners</h3>
+              <p className="text-slate-500 text-sm mb-4">Instructor: Albert E.</p>
+              <div className="flex justify-between items-center mb-4">
+                <span className="font-bold text-orange-600">⭐ 4.7</span>
+              </div>
+              <Link href="/courses" className="block text-center bg-slate-100 text-slate-800 py-2.5 rounded-xl font-bold hover:bg-orange-500 hover:text-white transition-colors">View Details</Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Extra Section: Top Instructors */}
+      <section className="bg-white py-20 px-6 border-t border-slate-100">
+        <div className="max-w-7xl mx-auto text-center">
+          <h2 className="text-4xl font-extrabold text-slate-800 mb-12">🏆 Top Instructors</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="p-6"><img src="https://ui-avatars.com/api/?name=John+Doe&size=128" className="rounded-full mx-auto mb-4 border-4 border-orange-100" /><h3 className="font-bold text-xl">John Doe</h3><p className="text-slate-500">Web Developer</p></div>
+            <div className="p-6"><img src="https://ui-avatars.com/api/?name=Jane+Smith&size=128" className="rounded-full mx-auto mb-4 border-4 border-orange-100" /><h3 className="font-bold text-xl">Jane Smith</h3><p className="text-slate-500">UI/UX Designer</p></div>
+            <div className="p-6"><img src="https://ui-avatars.com/api/?name=Albert+E&size=128" className="rounded-full mx-auto mb-4 border-4 border-orange-100" /><h3 className="font-bold text-xl">Albert E.</h3><p className="text-slate-500">Data Scientist</p></div>
+          </div>
         </div>
       </section>
     </div>
