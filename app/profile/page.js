@@ -39,7 +39,7 @@ export default function ProfilePage() {
         <h2 className="text-3xl font-black mb-8 text-center">My Profile</h2>
         
         <div className="flex flex-col items-center mb-10">
-          {/* ছবি না থাকলে নামের প্রথম অক্ষর বড় করে দেখাবে */}
+          
           <img 
             src={session.user.image ? session.user.image : `https://ui-avatars.com/api/?name=${session.user.name}&background=f97316&color=fff&size=128`} 
             className="w-32 h-32 rounded-full border-4 border-orange-500 shadow-lg mb-4 object-cover" 

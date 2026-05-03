@@ -25,11 +25,11 @@ export default function Register() {
       image: photo,
     }, {
       onSuccess: () => {
-        // সফল হলে লগইন পেজে পাঠিয়ে দেবে
+        
         router.push("/login");
       },
       onError: (ctx) => {
-        // ভুল হলে ফর্মের ওপরেই লাল রঙে এরর দেখাবে
+        
         setError(ctx.error.message);
         setLoading(false);
       }

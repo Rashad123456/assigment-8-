@@ -33,7 +33,7 @@ export default function Navbar() {
         ) : session ? (
           <div className="flex items-center gap-4">
             <div className="flex items-center gap-2 bg-slate-50 p-1.5 pr-4 rounded-full border">
-              {/* ছবি না থাকলে নামের অক্ষর দেখানোর ম্যাজিক */}
+              
               <img 
                 src={session.user.image ? session.user.image : `https://ui-avatars.com/api/?name=${session.user.name}&background=f97316&color=fff`} 
                 className="w-9 h-9 rounded-full object-cover" 

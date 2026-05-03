@@ -12,14 +12,14 @@ export default function CourseDetails() {
   const { data: session, isPending } = authClient.useSession();
   const [course, setCourse] = useState(null);
 
-  // Authentication চেক
+  
   useEffect(() => {
     if (!isPending && !session) {
       router.push("/login");
     }
   }, [session, isPending, router]);
 
-  // Course ডেটা খোঁজা
+  
   useEffect(() => {
     if (params?.id) {
       const foundCourse = coursesData.find((c) => c.id.toString() === params.id);

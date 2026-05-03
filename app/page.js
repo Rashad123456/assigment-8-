@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 export default function Home() {
   return (
     <div className="min-h-screen bg-slate-50 text-black">
-      {/* Hero Section with Animation */}
+      
       <section className="bg-slate-900 text-white py-24 px-6 text-center overflow-hidden">
         <motion.div 
           initial={{ opacity: 0, y: 50 }} 
@@ -27,7 +27,7 @@ export default function Home() {
         </motion.div>
       </section>
 
-      {/* Popular Courses Section */}
+      
       <section className="py-20 px-6 max-w-7xl mx-auto">
         <div className="text-center mb-16">
           <h2 className="text-4xl font-extrabold text-slate-800">🔥 Popular Courses</h2>
@@ -35,7 +35,7 @@ export default function Home() {
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {/* Dummy Course Card 1 */}
+          
           <div className="bg-white rounded-3xl overflow-hidden shadow-xl border border-slate-100 hover:-translate-y-2 transition-all">
             <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=600&q=80" alt="Web Dev" className="w-full h-48 object-cover" />
             <div className="p-6">
@@ -44,11 +44,11 @@ export default function Home() {
               <div className="flex justify-between items-center mb-4">
                 <span className="font-bold text-orange-600">⭐ 4.8</span>
               </div>
-              {/* এখানে /courses/1 করে দেওয়া হয়েছে */}
+              
               <Link href="/courses/1" className="block text-center bg-slate-100 text-slate-800 py-2.5 rounded-xl font-bold hover:bg-orange-500 hover:text-white transition-colors">View Details</Link>
             </div>
           </div>
-          {/* Dummy Course Card 2 */}
+          
           <div className="bg-white rounded-3xl overflow-hidden shadow-xl border border-slate-100 hover:-translate-y-2 transition-all">
             <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=600&q=80" alt="UI UX" className="w-full h-48 object-cover" />
             <div className="p-6">
@@ -57,11 +57,11 @@ export default function Home() {
               <div className="flex justify-between items-center mb-4">
                 <span className="font-bold text-orange-600">⭐ 4.9</span>
               </div>
-              {/* এখানে /courses/2 করে দেওয়া হয়েছে */}
+              
               <Link href="/courses/2" className="block text-center bg-slate-100 text-slate-800 py-2.5 rounded-xl font-bold hover:bg-orange-500 hover:text-white transition-colors">View Details</Link>
             </div>
           </div>
-          {/* Dummy Course Card 3 */}
+          
           <div className="bg-white rounded-3xl overflow-hidden shadow-xl border border-slate-100 hover:-translate-y-2 transition-all">
             <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&q=80" alt="Data Science" className="w-full h-48 object-cover" />
             <div className="p-6">
@@ -70,14 +70,14 @@ export default function Home() {
               <div className="flex justify-between items-center mb-4">
                 <span className="font-bold text-orange-600">⭐ 4.7</span>
               </div>
-              {/* এখানে /courses/3 করে দেওয়া হয়েছে */}
+              
               <Link href="/courses/3" className="block text-center bg-slate-100 text-slate-800 py-2.5 rounded-xl font-bold hover:bg-orange-500 hover:text-white transition-colors">View Details</Link>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Extra Section: Top Instructors */}
+      
       <section className="bg-white py-20 px-6 border-t border-slate-100">
         <div className="max-w-7xl mx-auto text-center">
           <h2 className="text-4xl font-extrabold text-slate-800 mb-12">🏆 Top Instructors</h2>
