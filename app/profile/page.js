@@ -1,12 +1,19 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { authClient } from "../../lib/auth-client";
 
 export default function ProfilePage() {
-  const { data: session } = authClient.useSession();
-  const [name, setName] = useState(session?.user?.name || "");
-  const [image, setImage] = useState(session?.user?.image || "");
+  const { data: session, isPending } = authClient.useSession();
+  const [name, setName] = useState("");
+  const [image, setImage] = useState("");
   const [updating, setUpdating] = useState(false);
+
+  useEffect(() => {
+    if (session) {
+      setName(session.user.name || "");
+      setImage(session.user.image || "");
+    }
+  }, [session]);
 
   const handleUpdate = async (e) => {
     e.preventDefault();
@@ -23,7 +30,8 @@ export default function ProfilePage() {
     });
   };
 
-  if (!session) return <div className="text-center py-20 text-black font-bold">Please login to view your profile.</div>;
+  if (isPending) return <div className="text-center py-20 text-black font-bold">Loading Profile...</div>;
+  if (!session) return <div className="text-center py-20 text-red-500 font-bold text-xl">Please login to view your profile!</div>;
 
   return (
     <div className="max-w-xl mx-auto my-16 px-6 text-black">
@@ -31,11 +39,13 @@ export default function ProfilePage() {
         <h2 className="text-3xl font-black mb-8 text-center">My Profile</h2>
         
         <div className="flex flex-col items-center mb-10">
+          {/* ছবি না থাকলে নামের প্রথম অক্ষর বড় করে দেখাবে */}
           <img 
-            src={session.user.image || `https://ui-avatars.com/api/?name=${session.user.name}`} 
-            className="w-32 h-32 rounded-full border-4 border-orange-500 shadow-lg mb-4" 
+            src={session.user.image ? session.user.image : `https://ui-avatars.com/api/?name=${session.user.name}&background=f97316&color=fff&size=128`} 
+            className="w-32 h-32 rounded-full border-4 border-orange-500 shadow-lg mb-4 object-cover" 
             alt="profile"
           />
+          <h3 className="text-xl font-bold">{session.user.name}</h3>
           <p className="text-slate-400 text-sm italic">{session.user.email}</p>
         </div>
 
@@ -55,6 +65,7 @@ export default function ProfilePage() {
               type="text" 
               value={image} 
               onChange={(e) => setImage(e.target.value)}
+              placeholder="Paste any image link here"
               className="w-full p-4 rounded-2xl border bg-slate-50 focus:bg-white outline-none focus:ring-2 focus:ring-orange-500 transition-all"
             />
           </div>

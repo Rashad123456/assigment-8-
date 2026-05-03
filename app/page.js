@@ -44,7 +44,8 @@ export default function Home() {
               <div className="flex justify-between items-center mb-4">
                 <span className="font-bold text-orange-600">⭐ 4.8</span>
               </div>
-              <Link href="/courses" className="block text-center bg-slate-100 text-slate-800 py-2.5 rounded-xl font-bold hover:bg-orange-500 hover:text-white transition-colors">View Details</Link>
+              {/* এখানে /courses/1 করে দেওয়া হয়েছে */}
+              <Link href="/courses/1" className="block text-center bg-slate-100 text-slate-800 py-2.5 rounded-xl font-bold hover:bg-orange-500 hover:text-white transition-colors">View Details</Link>
             </div>
           </div>
           {/* Dummy Course Card 2 */}
@@ -56,7 +57,8 @@ export default function Home() {
               <div className="flex justify-between items-center mb-4">
                 <span className="font-bold text-orange-600">⭐ 4.9</span>
               </div>
-              <Link href="/courses" className="block text-center bg-slate-100 text-slate-800 py-2.5 rounded-xl font-bold hover:bg-orange-500 hover:text-white transition-colors">View Details</Link>
+              {/* এখানে /courses/2 করে দেওয়া হয়েছে */}
+              <Link href="/courses/2" className="block text-center bg-slate-100 text-slate-800 py-2.5 rounded-xl font-bold hover:bg-orange-500 hover:text-white transition-colors">View Details</Link>
             </div>
           </div>
           {/* Dummy Course Card 3 */}
@@ -68,7 +70,8 @@ export default function Home() {
               <div className="flex justify-between items-center mb-4">
                 <span className="font-bold text-orange-600">⭐ 4.7</span>
               </div>
-              <Link href="/courses" className="block text-center bg-slate-100 text-slate-800 py-2.5 rounded-xl font-bold hover:bg-orange-500 hover:text-white transition-colors">View Details</Link>
+              {/* এখানে /courses/3 করে দেওয়া হয়েছে */}
+              <Link href="/courses/3" className="block text-center bg-slate-100 text-slate-800 py-2.5 rounded-xl font-bold hover:bg-orange-500 hover:text-white transition-colors">View Details</Link>
             </div>
           </div>
         </div>
@@ -79,9 +82,9 @@ export default function Home() {
         <div className="max-w-7xl mx-auto text-center">
           <h2 className="text-4xl font-extrabold text-slate-800 mb-12">🏆 Top Instructors</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="p-6"><img src="https://ui-avatars.com/api/?name=John+Doe&size=128" className="rounded-full mx-auto mb-4 border-4 border-orange-100" /><h3 className="font-bold text-xl">John Doe</h3><p className="text-slate-500">Web Developer</p></div>
-            <div className="p-6"><img src="https://ui-avatars.com/api/?name=Jane+Smith&size=128" className="rounded-full mx-auto mb-4 border-4 border-orange-100" /><h3 className="font-bold text-xl">Jane Smith</h3><p className="text-slate-500">UI/UX Designer</p></div>
-            <div className="p-6"><img src="https://ui-avatars.com/api/?name=Albert+E&size=128" className="rounded-full mx-auto mb-4 border-4 border-orange-100" /><h3 className="font-bold text-xl">Albert E.</h3><p className="text-slate-500">Data Scientist</p></div>
+            <div className="p-6"><img src="https://ui-avatars.com/api/?name=John+Doe&size=128" className="rounded-full mx-auto mb-4 border-4 border-orange-100" alt="John" /><h3 className="font-bold text-xl">John Doe</h3><p className="text-slate-500">Web Developer</p></div>
+            <div className="p-6"><img src="https://ui-avatars.com/api/?name=Jane+Smith&size=128" className="rounded-full mx-auto mb-4 border-4 border-orange-100" alt="Jane" /><h3 className="font-bold text-xl">Jane Smith</h3><p className="text-slate-500">UI/UX Designer</p></div>
+            <div className="p-6"><img src="https://ui-avatars.com/api/?name=Albert+E&size=128" className="rounded-full mx-auto mb-4 border-4 border-orange-100" alt="Albert" /><h3 className="font-bold text-xl">Albert E.</h3><p className="text-slate-500">Data Scientist</p></div>
           </div>
         </div>
       </section>

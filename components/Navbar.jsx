@@ -33,7 +33,12 @@ export default function Navbar() {
         ) : session ? (
           <div className="flex items-center gap-4">
             <div className="flex items-center gap-2 bg-slate-50 p-1.5 pr-4 rounded-full border">
-              <img src={session.user.image || `https://ui-avatars.com/api/?name=${session.user.name}`} className="w-9 h-9 rounded-full" alt="profile" />
+              {/* ছবি না থাকলে নামের অক্ষর দেখানোর ম্যাজিক */}
+              <img 
+                src={session.user.image ? session.user.image : `https://ui-avatars.com/api/?name=${session.user.name}&background=f97316&color=fff`} 
+                className="w-9 h-9 rounded-full object-cover" 
+                alt="profile" 
+              />
               <span className="text-sm font-bold text-slate-700 hidden sm:inline">{session.user.name.split(' ')[0]}</span>
             </div>
             <button onClick={handleLogout} className="bg-slate-800 text-white px-5 py-2 rounded-xl text-sm font-bold hover:bg-black transition-all">
