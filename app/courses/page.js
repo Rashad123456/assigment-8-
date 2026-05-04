@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import Link from "next/link";
-import coursesData from "../../data/courses.json"; // 🌟 সরাসরি ইম্পোর্ট
+import coursesData from "../../data/courses.json"; // 
 
 export default function CoursesPage() {
   const [searchTerm, setSearchTerm] = useState("");
